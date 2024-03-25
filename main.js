@@ -3,11 +3,17 @@ import * as THREE from "three";
 // The default rotation unit in Three.js is _____.
 //
 
+// You establish a parent-child relationship by adding an object to another object.
+
 function init() {
   var scene = new THREE.Scene();
 
+  scene.fog = new THREE.FogExp2(0xffffff, 0.2);
+
   var box = getBox(1, 1, 1);
-  var plane = getPlane(4);
+  var plane = getPlane(20);
+
+  plane.name = "plane-1";
 
   // At the bare minimum you need to have a scene and a camera to render a three.js scene
 
@@ -18,7 +24,6 @@ function init() {
   plane.rotation.x = Math.PI / 2;
 
   scene.add(box);
-
   scene.add(plane);
 
   var camera = new THREE.PerspectiveCamera(
@@ -38,6 +43,7 @@ function init() {
 
   var renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0xffffff);
   document.getElementById("webgl").appendChild(renderer.domElement);
   update(renderer, scene, camera);
 }
@@ -67,6 +73,9 @@ function getPlane(size) {
 
 function update(renderer, scene, camera) {
   renderer.render(scene, camera);
+
+  // Using the requestAnimationFrame function we are able to do continuous rendering in Three.js
+
   requestAnimationFrame(function () {
     update(renderer, scene, camera);
   });
