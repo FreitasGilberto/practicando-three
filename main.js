@@ -1,12 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-// The default rotation unit in Three.js is _____.
+//Using the OrbitControls script you can easily add interactivity to the given camera.
+
 // You establish a parent-child relationship by adding an object to another object.
 
 function init() {
   var scene = new THREE.Scene();
 
+  // dat.GUI provides you with a user interface through which you can control specified parameters.
   var gui = new dat.GUI();
 
   var enableFog = false;
@@ -17,6 +19,7 @@ function init() {
 
   var box = getBox(1, 1, 1);
   var plane = getPlane(20);
+  // You need lights in the scene to be able to see the surfaces that uses a non-basic material.
   var pointLight = getPointLight(1);
   var sphere = getSphere(0.05);
 
@@ -36,6 +39,7 @@ function init() {
 
   scene.add(box);
   scene.add(plane);
+  // Even though lights themselves are not represented by a geometry, you can attach a geometry to them as a child for them to be visible in the scene.
   pointLight.add(sphere);
   scene.add(pointLight);
 
@@ -56,6 +60,7 @@ function init() {
 
   var renderer = new THREE.WebGLRenderer();
   renderer.shadowMap.enabled = true;
+  // You need to configure the shadows on the renderer, lights and objects to have it working.
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor("rgb(120, 120, 120)");
   document.getElementById("webgl").appendChild(renderer.domElement);
