@@ -55,6 +55,7 @@ function init() {
   //WebGL is a low level JavaScript API. it doesn’t have as many abstractions as Three.js. It is more verbose and harder to use.
 
   var renderer = new THREE.WebGLRenderer();
+  renderer.shadowMap.enabled = true;
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor("rgb(120, 120, 120)");
   document.getElementById("webgl").appendChild(renderer.domElement);
@@ -73,6 +74,7 @@ function getBox(w, h, d) {
   // You need to provide a mesh with a geometry and a material to define it.
 
   var mesh = new THREE.Mesh(geometry, material);
+  mesh.castShadow = true;
   return mesh;
 }
 
@@ -84,6 +86,9 @@ function getPlane(size) {
   });
 
   var mesh = new THREE.Mesh(geometry, material);
+
+  mesh.receiveShadow = true;
+
   return mesh;
 }
 
@@ -96,11 +101,14 @@ function getSphere(size) {
   // You need to provide a mesh with a geometry and a material to define it.
 
   var mesh = new THREE.Mesh(geometry, material);
+
   return mesh;
 }
 
 function getPointLight(intensity) {
   var light = new THREE.PointLight(0xffffff, intensity);
+  light.castShadow = true;
+
   return light;
 }
 
